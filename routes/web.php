@@ -28,7 +28,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/firmy/pridat', [FirmyController::class, 'create'])->name('firmy.create');
     Route::post('/firmy', [FirmyController::class, 'store'])->name('firmy.store');
     Route::get('/firmy/{firma}', [FirmyController::class, 'show'])->name('firmy.show');
-    Route::get('/firmy/{firma}/edit', [FirmyController::class, 'edit'])->name('firmy.edit');
     Route::put('/firmy/{firma}', [FirmyController::class, 'update'])->name('firmy.update');
     Route::delete('/firmy/{firma}', [FirmyController::class, 'destroy'])->name('firmy.destroy');
 

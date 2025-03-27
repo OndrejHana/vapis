@@ -28,16 +28,10 @@ class FirmyController extends Controller
      */
     public function create()
     {
-
-
-        $druhyFirem = DruhFirmy::all();
-        $adresy = Adresa::with('okres')->get();
-        $okresy = Okres::all();
-
         return Inertia::render('firmy/create', [
-            'druhyFirem' => $druhyFirem,
-            'adresy' => $adresy,
-            'okresy' => $okresy
+            'druhyFirem' => DruhFirmy::all(),
+            'adresy' => Adresa::with(['okres'])->get(),
+            'okresy' => Okres::all()
         ]);
     }
 
@@ -63,22 +57,13 @@ class FirmyController extends Controller
     public function show(string $id)
     {
         return Inertia::render('firmy/show', [
-            'firma' => Firma::with(['adresa', 'druhFirmy'])->find($id)
-        ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        return Inertia::render('firmy/edit', [
             'firma' => Firma::with(['adresa', 'druhFirmy'])->find($id),
             'druhy_firem' => DruhFirmy::all(),
             'adresy' => Adresa::with(['okres'])->get(),
             'okresy' => Okres::all(),
         ]);
     }
+
 
     /**
      * Update the specified resource in storage.

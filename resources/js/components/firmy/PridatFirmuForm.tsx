@@ -163,7 +163,7 @@ export default function PridatFirmuForm({
                 <div className="mt-2 flex justify-end gap-4">
                     <Button
                         type="button"
-                        variant="outline"
+                        variant="ghost"
                         onClick={onCancel}
                         disabled={processing}
                         tabIndex={7}

@@ -16,6 +16,7 @@ import {
 import PridatDruhFirmySheet from "@/components/sheets/PridatDruhFirmySheet";
 import PridatFirmuForm from "@/components/firmy/PridatFirmuForm";
 import PridatAdresuSheet from "@/components/sheets/PridatAdresuSheet";
+import { toast } from "sonner";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -78,7 +79,8 @@ export default function PridatFirmu({
                             e.preventDefault();
                             pridatFirmuForm.post("/firmy", {
                                 onSuccess: (_) => {
-                                    pridatFirmuForm.reset()
+                                    pridatFirmuForm.reset();
+                                    toast("firma byla vytvořena")
                                 }
                             });
                         }}
@@ -106,7 +108,9 @@ export default function PridatFirmu({
                         }}
                         onSubmit={(e) => {
                             e.preventDefault();
-                            pridatDruhFirmyForm.post("/druhy_firem");
+                            pridatDruhFirmyForm.post("/druhy_firem", {
+                                onSuccess: () => toast("druh firmy byl vytvořen")
+                            });
                         }}
                     />
 
@@ -123,7 +127,9 @@ export default function PridatFirmu({
                         form={pridatAdresuForm}
                         onSubmit={(e) => {
                             e.preventDefault();
-                            pridatAdresuForm.post("/adresy");
+                            pridatAdresuForm.post("/adresy", {
+                                onSuccess: () => toast("adresa byla vytvořena")
+                            });
                         }}
                         onOpenChange={setAdresaSheetOpen}
                         open={adresaSheetOpen}
