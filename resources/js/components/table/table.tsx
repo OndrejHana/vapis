@@ -1,10 +1,25 @@
-import { ColumnDef, FilterFn, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
+import {
+    ColumnDef,
+    FilterFn,
+    flexRender,
+    getCoreRowModel,
+    getSortedRowModel,
+    SortingState,
+    useReactTable,
+} from "@tanstack/react-table";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "../ui/table";
 import { useState } from "react";
 
 interface DataTableProps<TData, TValue> {
-    columns: ColumnDef<TData, TValue>[]
-    data: TData[]
+    columns: ColumnDef<TData, TValue>[];
+    data: TData[];
 }
 
 // Define a custom fuzzy filter function that will apply ranking info to rows (using match-sorter utils)
@@ -21,9 +36,12 @@ interface DataTableProps<TData, TValue> {
 //    return itemRank.passed
 //}
 
-export default function CustomTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export default function CustomTable<TData, TValue>({
+    columns,
+    data,
+}: DataTableProps<TData, TValue>) {
     //const [globalFilter, setGLobalFilter] = useState("");
-    const [sorting, setSorting] = useState<SortingState>([])
+    const [sorting, setSorting] = useState<SortingState>([]);
 
     const table = useReactTable({
         data,
@@ -32,10 +50,9 @@ export default function CustomTable<TData, TValue>({ columns, data }: DataTableP
         onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
         state: {
-            sorting
-        }
-
-    })
+            sorting,
+        },
+    });
 
     return (
         <Table>
@@ -48,11 +65,11 @@ export default function CustomTable<TData, TValue>({ columns, data }: DataTableP
                                     {header.isPlaceholder
                                         ? null
                                         : flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext()
-                                        )}
+                                              header.column.columnDef.header,
+                                              header.getContext(),
+                                          )}
                                 </TableHead>
-                            )
+                            );
                         })}
                     </TableRow>
                 ))}
@@ -66,14 +83,20 @@ export default function CustomTable<TData, TValue>({ columns, data }: DataTableP
                         >
                             {row.getVisibleCells().map((cell) => (
                                 <TableCell key={cell.id}>
-                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    {flexRender(
+                                        cell.column.columnDef.cell,
+                                        cell.getContext(),
+                                    )}
                                 </TableCell>
                             ))}
                         </TableRow>
                     ))
                 ) : (
                     <TableRow>
-                        <TableCell colSpan={columns.length} className="h-24 text-center">
+                        <TableCell
+                            colSpan={columns.length}
+                            className="h-24 text-center"
+                        >
                             No results.
                         </TableCell>
                     </TableRow>
@@ -81,6 +104,4 @@ export default function CustomTable<TData, TValue>({ columns, data }: DataTableP
             </TableBody>
         </Table>
     );
-
-
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdresyController;
 use App\Http\Controllers\DruhFirmyController;
 use App\Http\Controllers\FirmyController;
 use Illuminate\Support\Facades\Route;
@@ -33,5 +34,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/druhy_firem', [DruhFirmyController::class, 'store'])->name('druhy_firem.store');
 
-    /*Route::post('/adresy')*/
+    Route::post('/adresy', [AdresyController::class, 'store'])->name('adresy.store');
 });

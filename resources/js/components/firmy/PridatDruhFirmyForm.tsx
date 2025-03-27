@@ -7,15 +7,13 @@ import InputError from "../input-error";
 import { Button } from "../ui/button";
 
 type props = {
-    form: InertiaFormProps<PridatDruhFirmy>
-    onSubmit: FormEventHandler
+    form: InertiaFormProps<PridatDruhFirmy>;
+    onSubmit: FormEventHandler;
 };
 
 export default function PridatDruhFirmyForm({ onSubmit, form }: props) {
     return (
-        <form onSubmit={onSubmit}
-            className='flex flex-col gap-2 '
-        >
+        <form onSubmit={onSubmit} className="flex flex-col gap-2">
             <Label htmlFor="nazev">Druh firmy *</Label>
             <Input
                 id="nazev"
@@ -24,12 +22,14 @@ export default function PridatDruhFirmyForm({ onSubmit, form }: props) {
                 autoFocus
                 tabIndex={1}
                 value={form.data.nazev}
-                onChange={(e) => form.setData('nazev', e.target.value)}
+                onChange={(e) => form.setData("nazev", e.target.value)}
                 disabled={form.processing}
                 placeholder="Zadejte druh firmy"
             />
             <InputError message={form.errors?.nazev} className="mt-2" />
-            <Button type='submit' variant='default'>Vytvořit</Button>
+            <Button type="submit" variant="default">
+                Vytvořit
+            </Button>
         </form>
     );
 }

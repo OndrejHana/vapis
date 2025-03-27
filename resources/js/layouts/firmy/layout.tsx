@@ -1,24 +1,28 @@
-import Heading from '@/components/heading';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { cn } from '@/lib/utils';
-import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/react';
+import Heading from "@/components/heading";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
+import { type NavItem } from "@/types";
+import { Link } from "@inertiajs/react";
 
 const sidebarNavItems: NavItem[] = [
     {
-        title: 'Přehled firem',
-        url: '/firmy',
+        title: "Přehled firem",
+        url: "/firmy",
         icon: null,
     },
     {
-        title: 'Přidat firmu',
-        url: '/firmy/pridat',
+        title: "Přidat firmu",
+        url: "/firmy/pridat",
         icon: null,
     },
 ];
 
-export default function FirmyLayout({ children }: { children: React.ReactNode }) {
+export default function FirmyLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     const currentPath = window.location.pathname;
 
     return (
@@ -33,8 +37,8 @@ export default function FirmyLayout({ children }: { children: React.ReactNode })
                                 size="sm"
                                 variant="ghost"
                                 asChild
-                                className={cn('w-full justify-start', {
-                                    'bg-muted': currentPath === item.url,
+                                className={cn("w-full justify-start", {
+                                    "bg-muted": currentPath === item.url,
                                 })}
                             >
                                 <Link href={item.url} prefetch>

@@ -18,7 +18,7 @@ class FirmyController extends Controller
     {
         $firmy = Firma::with(['adresa', 'druhFirmy'])->get();
 
-        return Inertia::render('firmy/prehled', [
+        return Inertia::render('firmy/index', [
             'firmy' => $firmy
         ]);
     }
@@ -34,7 +34,7 @@ class FirmyController extends Controller
         $adresy = Adresa::with('okres')->get();
         $okresy = Okres::all();
 
-        return Inertia::render('firmy/pridat', [
+        return Inertia::render('firmy/create', [
             'druhyFirem' => $druhyFirem,
             'adresy' => $adresy,
             'okresy' => $okresy
@@ -51,7 +51,7 @@ class FirmyController extends Controller
             'email' => 'nullable|email|max:255',
             'poznamka' => 'nullable|string',
             'druh_firmy_id' => 'required|exists:druhy_firem,id',
-            'adresa_id' => 'required|exists:adresy,id',
+            'adresa_id' => 'nullable|exists:adresy,id',
         ]);
 
         $firma = Firma::create($validated);
@@ -62,7 +62,9 @@ class FirmyController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Inertia::render('firmy/show', [
+            'firma' => Firma::with(['adresa', 'druhFirmy'])->find($id)
+        ]);
     }
 
     /**
@@ -70,7 +72,12 @@ class FirmyController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return Inertia::render('firmy/edit', [
+            'firma' => Firma::with(['adresa', 'druhFirmy'])->find($id),
+            'druhy_firem' => DruhFirmy::all(),
+            'adresy' => Adresa::with(['okres'])->get(),
+            'okresy' => Okres::all(),
+        ]);
     }
 
     /**
@@ -78,7 +85,16 @@ class FirmyController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'nazev' => 'required|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'poznamka' => 'nullable|string',
+            'druh_firmy_id' => 'required|exists:druhy_firem,id',
+            'adresa_id' => 'nullable|exists:adresy,id',
+        ]);
+
+        $firma = Firma::find($id);
+        $firma->update($validated);
     }
 
     /**

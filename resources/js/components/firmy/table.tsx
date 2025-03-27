@@ -1,4 +1,11 @@
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "../ui/table";
+import {
+    Table,
+    TableHeader,
+    TableRow,
+    TableHead,
+    TableBody,
+    TableCell,
+} from "../ui/table";
 import { Firma, DruhFirmy } from "../../types/Firma";
 import { ColumnDef } from "@tanstack/react-table";
 import CustomTable from "../table/table";
@@ -9,7 +16,6 @@ import { ArrowUpDown } from "lucide-react";
 interface FirmyTableProps {
     firmy: Firma[];
 }
-
 
 //id: number;
 //adresa_id: number;
@@ -23,15 +29,21 @@ interface FirmyTableProps {
 //adresa?: Adresa;
 //druh_firmy?: DruhFirmy;
 
-
 const columns: ColumnDef<Firma>[] = [
     {
         id: "select",
-        header: ({ table }) => <Checkbox
-            checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
-            onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-            aria-label="Select All"
-        />,
+        header: ({ table }) => (
+            <Checkbox
+                checked={
+                    table.getIsAllPageRowsSelected() ||
+                    (table.getIsSomePageRowsSelected() && "indeterminate")
+                }
+                onCheckedChange={(value) =>
+                    table.toggleAllPageRowsSelected(!!value)
+                }
+                aria-label="Select All"
+            />
+        ),
         cell: ({ row }) => (
             <Checkbox
                 checked={row.getIsSelected()}
@@ -48,12 +60,14 @@ const columns: ColumnDef<Firma>[] = [
             return (
                 <Button
                     variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    onClick={() =>
+                        column.toggleSorting(column.getIsSorted() === "asc")
+                    }
                 >
                     Název
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
-            )
+            );
         },
     },
     {
@@ -62,12 +76,14 @@ const columns: ColumnDef<Firma>[] = [
             return (
                 <Button
                     variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    onClick={() =>
+                        column.toggleSorting(column.getIsSorted() === "asc")
+                    }
                 >
                     Email
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
-            )
+            );
         },
     },
     {
@@ -76,12 +92,14 @@ const columns: ColumnDef<Firma>[] = [
             return (
                 <Button
                     variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    onClick={() =>
+                        column.toggleSorting(column.getIsSorted() === "asc")
+                    }
                 >
                     Druh firmy
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
-            )
+            );
         },
     },
     {
@@ -91,11 +109,10 @@ const columns: ColumnDef<Firma>[] = [
             const adresa = props.row.original.adresa;
             if (!adresa) return null;
             return `${adresa.ulice} ${adresa.popisne_cislo}, ${adresa.mesto}, ${adresa.psc}`;
-        }
+        },
     },
-]
+];
 
 export default function FirmyTable({ firmy }: FirmyTableProps) {
-    return <CustomTable columns={columns} data={firmy} />
+    return <CustomTable columns={columns} data={firmy} />;
 }
-
