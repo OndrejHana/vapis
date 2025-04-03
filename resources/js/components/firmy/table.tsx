@@ -1,33 +1,13 @@
-import {
-    Table,
-    TableHeader,
-    TableRow,
-    TableHead,
-    TableBody,
-    TableCell,
-} from "../ui/table";
-import { Firma, DruhFirmy } from "../../types/Firma";
+import { Firma } from "../../types/Firma";
 import { ColumnDef } from "@tanstack/react-table";
 import CustomTable from "../table/table";
 import { Checkbox } from "../ui/checkbox";
 import { Button } from "../ui/button";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowDownAZ, ArrowDownZA, ArrowUpDown } from "lucide-react";
 
 interface FirmyTableProps {
     firmy: Firma[];
 }
-
-//id: number;
-//adresa_id: number;
-//druh_firmy_id: number;
-//nazev: string;
-//email: string;
-//poznamka: string | null;
-//created_at?: string;
-//updated_at?: string;
-//// Relationships
-//adresa?: Adresa;
-//druh_firmy?: DruhFirmy;
 
 const columns: ColumnDef<Firma>[] = [
     {
@@ -57,6 +37,7 @@ const columns: ColumnDef<Firma>[] = [
     {
         accessorKey: "nazev",
         header: ({ column }) => {
+            const sorted = column.getIsSorted()
             return (
                 <Button
                     variant="ghost"
@@ -65,7 +46,12 @@ const columns: ColumnDef<Firma>[] = [
                     }
                 >
                     Název
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                    {sorted === false
+                        ? (<ArrowUpDown className="h-4 w-4" />)
+                        : sorted === 'asc'
+                            ? (<ArrowDownAZ className="h-4 w-4" />)
+                            : (<ArrowDownZA className="h-4 w-4" />)
+                    }
                 </Button>
             );
         },
@@ -73,6 +59,7 @@ const columns: ColumnDef<Firma>[] = [
     {
         accessorKey: "email",
         header: ({ column }) => {
+            const sorted = column.getIsSorted()
             return (
                 <Button
                     variant="ghost"
@@ -81,7 +68,12 @@ const columns: ColumnDef<Firma>[] = [
                     }
                 >
                     Email
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                    {sorted === false
+                        ? (<ArrowUpDown className="h-4 w-4" />)
+                        : sorted === 'asc'
+                            ? (<ArrowDownAZ className="h-4 w-4" />)
+                            : (<ArrowDownZA className="h-4 w-4" />)
+                    }
                 </Button>
             );
         },
@@ -89,6 +81,7 @@ const columns: ColumnDef<Firma>[] = [
     {
         accessorKey: "druh_firmy.nazev",
         header: ({ column }) => {
+            const sorted = column.getIsSorted()
             return (
                 <Button
                     variant="ghost"
@@ -97,7 +90,12 @@ const columns: ColumnDef<Firma>[] = [
                     }
                 >
                     Druh firmy
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                    {sorted === false
+                        ? (<ArrowUpDown className="h-4 w-4" />)
+                        : sorted === 'asc'
+                            ? (<ArrowDownAZ className="h-4 w-4" />)
+                            : (<ArrowDownZA className="h-4 w-4" />)
+                    }
                 </Button>
             );
         },

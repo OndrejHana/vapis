@@ -2,9 +2,15 @@
 
 ## TODO
 
-- [ ] modely a migrace
+- [x] pridat poznamku do zpusobu manipulace
+- [x] pridat poznamku do druhu kamionu
+- [x] pridat delku a nosnost k typu kamionu
+
+
+
+- [x] modely a migrace
 - [ ] resources a stranky
-- [ ] auth a chranene cesty
+- [x] auth a chranene cesty
 - [ ] tabulky
 - [ ] formulare pro prilohy kamionu
 - [ ] ukladani souboru prilohy
