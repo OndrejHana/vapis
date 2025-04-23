@@ -122,28 +122,28 @@ export default function CustomTable<TData, TValue>({
                 <span className="flex items-center">
                     <Button
                         variant="ghost"
-                        onClick={() => table.setPageIndex(0)}
+                        onMouseDown={() => table.setPageIndex(0)}
                         disabled={!table.getCanPreviousPage()}
                     >
                         <ChevronFirst />
                     </Button>
                     <Button
                         variant="ghost"
-                        onClick={() => table.previousPage()}
+                        onMouseDown={() => table.previousPage()}
                         disabled={!table.getCanPreviousPage()}
                     >
                         <ChevronLeft />
                     </Button>
                     <Button
                         variant="ghost"
-                        onClick={() => table.nextPage()}
+                        onMouseDown={() => table.nextPage()}
                         disabled={!table.getCanNextPage()}
                     >
                         <ChevronRight />
                     </Button>
                     <Button
                         variant="ghost"
-                        onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                        onMouseDown={() => table.setPageIndex(table.getPageCount() - 1)}
                         disabled={!table.getCanNextPage()}
                     >
                         <ChevronLast />

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdresyController;
 use App\Http\Controllers\DruhFirmyController;
 use App\Http\Controllers\FirmyController;
+use App\Http\Controllers\KamionyController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -34,4 +35,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/druhy_firem', [DruhFirmyController::class, 'store'])->name('druhy_firem.store');
 
     Route::post('/adresy', [AdresyController::class, 'store'])->name('adresy.store');
+
+    Route::get('/kamiony', [KamionyController::class, 'index'])->name('kamiony.index');
+    Route::get('/kamiony/pridat', [KamionyController::class, 'create'])->name('kamiony.create');
+    Route::post('/kamiony/pridat', [KamionyController::class, 'store'])->name('kamiony.store');
+    Route::get('/kamiony/{kamion}', [KamionyController::class, 'show'])->name('kamiony.show');
+    Route::put('/kamiony/{kamion}', [KamionyController::class, 'update'])->name('kamiony.update');
+    Route::delete('/kamiony/{kamion}', [KamionyController::class, 'destroy'])->name('kamiony.destroy');
 });

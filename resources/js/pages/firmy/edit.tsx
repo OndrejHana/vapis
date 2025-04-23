@@ -16,7 +16,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Prehled(props: {
+export default function UpravitFirmu(props: {
     firma: Firma,
     druhy_firem: DruhFirmy[],
     adresy: Adresa[],

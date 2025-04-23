@@ -6,8 +6,6 @@ export type Okres = {
     updated_at: string;
 };
 
-
-
 export type Adresa = {
     id: number;
     okres_id: number;
@@ -30,8 +28,6 @@ export type PridatAdresuFormData = {
     stat: string;
 };
 
-
-
 export type DruhFirmy = {
     id: number;
     nazev: string;
@@ -42,8 +38,6 @@ export type DruhFirmy = {
 export type PridatDruhFirmy = {
     nazev: string;
 };
-
-
 
 export type Firma = {
     id: number;
