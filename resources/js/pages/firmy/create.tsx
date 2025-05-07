@@ -15,8 +15,8 @@ import {
 } from "@/types/Firma";
 import PridatDruhFirmySheet from "@/components/sheets/PridatDruhFirmySheet";
 import PridatFirmuForm from "@/components/firmy/PridatFirmuForm";
-import PridatAdresuSheet from "@/components/sheets/PridatAdresuSheet";
 import { toast } from "sonner";
+import PridatAdresuSheet from "@/components/sheets/PridatAdresuSheet";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -92,6 +92,7 @@ export default function PridatFirmu({
                         onPridatDruhFirmy={() => setDruhFirmySheetOpen(true)}
                         adresy={adresy}
                         onPridatAdresu={() => setAdresaSheetOpen(true)}
+                        submitText="Vytvořit firmu"
                     />
 
                     <PridatDruhFirmySheet

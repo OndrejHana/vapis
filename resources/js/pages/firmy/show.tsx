@@ -74,6 +74,7 @@ export default function Prehled({ firma, druhy_firem, adresy, okresy }: {
                                 }}
                                 onPridatDruhFirmy={() => { setDruhFirmySheetOpen(true) }}
                                 onPridatAdresu={() => { setAdresaSheetOpen(true) }}
+                                submitText="Upravit"
                             />
                             <PridatDruhFirmySheet
                                 form={pridatDruhFirmyForm}

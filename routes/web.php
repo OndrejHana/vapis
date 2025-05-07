@@ -4,6 +4,7 @@ use App\Http\Controllers\AdresyController;
 use App\Http\Controllers\DruhFirmyController;
 use App\Http\Controllers\FirmyController;
 use App\Http\Controllers\KamionyController;
+use App\Http\Controllers\StavbyController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -42,4 +43,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/kamiony/{kamion}', [KamionyController::class, 'show'])->name('kamiony.show');
     Route::put('/kamiony/{kamion}', [KamionyController::class, 'update'])->name('kamiony.update');
     Route::delete('/kamiony/{kamion}', [KamionyController::class, 'destroy'])->name('kamiony.destroy');
+
+    Route::get('/stavby', [StavbyController::class, 'index'])->name('stavby.index');
+    Route::get('/stavby/pridat', [StavbyController::class, 'create'])->name('stavby.create');
+    Route::post('/stavby', [StavbyController::class, 'store'])->name('stavby.store');
+    Route::get('/stavby/{stavba}', [StavbyController::class, 'show'])->name('stavby.show');
+    Route::put('/stavby/{stavba}', [StavbyController::class, 'update'])->name('stavby.update');
+    Route::delete('/stavby/{stavba}', [StavbyController::class, 'destroy'])->name('stavby.destroy');
 });

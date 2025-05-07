@@ -25,6 +25,7 @@ interface FirmaFormProps {
     onPridatDruhFirmy: MouseEventHandler;
     adresy: Adresa[];
     onPridatAdresu: MouseEventHandler;
+    submitText: string | null,
 }
 
 export default function PridatFirmuForm({
@@ -35,8 +36,11 @@ export default function PridatFirmuForm({
     onPridatDruhFirmy,
     adresy,
     onPridatAdresu,
+    submitText = 'Vytvořit',
+
 }: FirmaFormProps) {
     const { data, setData, processing, errors } = form;
+    console.log('submittext', submitText)
 
     return (
         <form className="flex flex-col gap-6" onSubmit={onSubmit}>
@@ -84,14 +88,16 @@ export default function PridatFirmuForm({
                             <SelectValue placeholder="Vyberte druh firmy" />
                         </SelectTrigger>
                         <SelectContent>
-                            {druhyFirem.map((druh) => (
-                                <SelectItem
-                                    key={druh.id}
-                                    value={druh.id.toString()}
-                                >
-                                    {druh.nazev}
-                                </SelectItem>
-                            ))}
+                            <div className="max-h-[200px] overflow-y-auto">
+                                {druhyFirem.map((druh) => (
+                                    <SelectItem
+                                        key={druh.id}
+                                        value={druh.id.toString()}
+                                    >
+                                        {druh.nazev}
+                                    </SelectItem>
+                                ))}
+                            </div>
                             <Separator className="my-1" />
                             <Button
                                 type="button"
@@ -117,21 +123,23 @@ export default function PridatFirmuForm({
                             <SelectValue placeholder="Vyberte adresu" />
                         </SelectTrigger>
                         <SelectContent>
-                            {adresy.length > 0 ? (
-                                adresy.map((adresa) => (
-                                    <SelectItem
-                                        key={adresa.id}
-                                        value={adresa.id.toString()}
-                                    >
-                                        {adresa.ulice} {adresa.popisne_cislo},{" "}
-                                        {adresa.mesto}, {adresa.psc}
-                                    </SelectItem>
-                                ))
-                            ) : (
-                                <span className="text-muted-foreground p-2 text-sm">
-                                    Žádné adresy nenalezeny
-                                </span>
-                            )}
+                            <div className="max-h-[200px] overflow-y-auto">
+                                {adresy.length > 0 ? (
+                                    adresy.map((adresa) => (
+                                        <SelectItem
+                                            key={adresa.id}
+                                            value={adresa.id.toString()}
+                                        >
+                                            {adresa.ulice} {adresa.popisne_cislo},{" "}
+                                            {adresa.mesto}, {adresa.psc}
+                                        </SelectItem>
+                                    ))
+                                ) : (
+                                    <span className="text-muted-foreground p-2 text-sm">
+                                        Žádné adresy nenalezeny
+                                    </span>
+                                )}
+                            </div>
                             <Separator className="my-1" />
                             <Button
                                 type="button"
@@ -179,7 +187,7 @@ export default function PridatFirmuForm({
                         {processing && (
                             <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
                         )}
-                        Vytvořit
+                        {submitText}
                     </Button>
                 </div>
             </div>

@@ -1,10 +1,11 @@
 import {
     ColumnDef,
+    FilterFn,
     flexRender,
     getCoreRowModel,
+    getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
-    PaginationState,
     SortingState,
     useReactTable,
 } from "@tanstack/react-table";
@@ -16,39 +17,35 @@ import {
     TableHeader,
     TableRow,
 } from "../ui/table";
-import { useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { rankItem } from '@tanstack/match-sorter-utils';
+import { router } from "@inertiajs/react";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
+    onRowClick?: MouseEventHandler;
 }
 
-// Define a custom fuzzy filter function that will apply ranking info to rows (using match-sorter utils)
-//const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
-//    // Rank the item
-//    const itemRank = rankItem(row.getValue(columnId), value)
-//
-//    // Store the itemRank info
-//    addMeta({
-//        itemRank,
-//    })
-//
-//    // Return if the item should be filtered in/out
-//    return itemRank.passed
-//}
-
+const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+    const itemRank = rankItem(row.getValue(columnId), value)
+    addMeta({ itemRank });
+    return itemRank.passed
+}
 
 export default function CustomTable<TData, TValue>({
     columns,
     data,
+    onRowClick
 }: DataTableProps<TData, TValue>) {
     //const [globalFilter, setGLobalFilter] = useState("");
     const [sorting, setSorting] = useState<SortingState>([]);
-    //const [pagination, setPagination] = useState<PaginationState>({
+    const [globalFilter, setGlobalFilter] = useState('')
+    //const [paginat  const [globalFilter, setGlobalFilter] = React.useState('')ion, setPagination] = useState<PaginationState>({
     //    pageIndex: 0,
     //    pageSize: 10,
     //})
@@ -56,19 +53,32 @@ export default function CustomTable<TData, TValue>({
     const table = useReactTable({
         data,
         columns,
+        filterFns: {
+            fuzzy: fuzzyFilter
+        },
+        globalFilterFn: fuzzyFilter,
+        onGlobalFilterChange: setGlobalFilter,
         getCoreRowModel: getCoreRowModel(),
         onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
         state: {
             sorting,
+            globalFilter,
             //pagination
         },
     });
 
-
     return (
         <div className="space-y-2">
+            <div>
+                <Input type="text"
+                    value={globalFilter}
+                    onChange={e => setGlobalFilter(e.target.value)}
+                    placeholder="Vyhledat"
+                />
+            </div>
             <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -94,6 +104,7 @@ export default function CustomTable<TData, TValue>({
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && "selected"}
+                                onMouseDown={onRowClick}
                             >
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell key={cell.id}>
@@ -194,4 +205,3 @@ export default function CustomTable<TData, TValue>({
     );
 }
 
-//value={table.getState().pagination.pageSize}

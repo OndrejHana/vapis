@@ -1,3 +1,4 @@
+import KamionyTable from "@/components/kamiony/table";
 import AppLayout from "@/layouts/app-layout";
 import KamionyLayout from "@/layouts/kamiony/layout";
 import { BreadcrumbItem } from "@/types";
@@ -12,6 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Prehled({ kamiony }: { kamiony: Kamion[] }) {
+    console.log(kamiony)
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Přehled kamionů" />
@@ -23,6 +25,7 @@ export default function Prehled({ kamiony }: { kamiony: Kamion[] }) {
                                 <h1 className="mb-6 text-2xl font-semibold">
                                     Přehled kamionů
                                 </h1>
+                                <KamionyTable kamiony={kamiony} />
                             </div>
                         </div>
                     </div>

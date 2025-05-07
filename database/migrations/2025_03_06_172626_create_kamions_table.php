@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('ridic_id')->nullable()->constrained('kontakty');
             $table->foreignId('dopravce_id')->nullable()->constrained('firmy');
             $table->foreignId('druh_kamionu_id')->constrained('druhy_kamionu');
+            $table->foreignId('stavby_id')->constrained('stavby');
             $table->integer('cena_dopravy')->nullable();
             $table->string('spz', 7)->nullable();
             $table->timestamps();

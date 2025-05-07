@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kamion;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -12,7 +13,9 @@ class KamionyController extends Controller
      */
     public function index()
     {
-        return Inertia::render('kamiony/index', []);
+        return Inertia::render('kamiony/index', [
+            'kamiony' => Kamion::with(['dopravce', 'druhKamionu', 'ridic', 'stav', 'kontaktniOsoba', 'stavby'])->get(),
+        ]);
     }
 
     /**
@@ -20,7 +23,14 @@ class KamionyController extends Controller
      */
     public function create()
     {
-        return Inertia::render('kamiony/create', []);
+        return Inertia::render('kamiony/create', [
+            'stavyKamionu' => \App\Models\StavKamionu::all(),
+            'stavby' => \App\Models\Stavba::all(),
+            'kontakty' => \App\Models\Kontakt::all(),
+            'dopravce' => \App\Models\Firma::whereHas('druhFirmy', function ($query) {
+                $query->where('nazev', 'dopravce');
+            })->get(),
+        ]);
     }
 
     /**
